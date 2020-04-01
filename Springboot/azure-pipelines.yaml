@@ -1,0 +1,24 @@
+pool:
+  name: 'ubuntu 16.04'
+  demands: maven
+
+steps:
+- task: Maven@3
+  displayName: 'Maven Springboot/pom.xml'
+  inputs:
+    mavenPomFile: Springboot/pom.xml
+
+- task: Docker@2
+  displayName: buildAndPush
+  inputs:
+    containerRegistry: sidda
+    repository: siddareddy/test
+    Dockerfile: Springboot/Dockerfile
+
+- task: PublishPipelineArtifact@1
+  displayName: 'Publish Pipeline Artifact'
+  inputs:
+    artifact: test
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact: drop'
