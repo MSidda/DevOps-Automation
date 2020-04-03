@@ -15,10 +15,39 @@ steps:
     repository: siddareddy/test
     Dockerfile: Springboot/Dockerfile
 
-- task: PublishPipelineArtifact@1
-  displayName: 'Publish Pipeline Artifact'
+- task: HelmInstaller@0
+  displayName: 'Install Helm 3.0.0'
   inputs:
-    artifact: test
-
+    helmVersion: 3.0.0
+    checkLatestHelmVersion: false
+- task: HelmDeploy@0
+  displayName: 'helm package'
+  inputs:
+    azureSubscription: ''
+    azureResourceGroup: 'tflabrg-cd96'
+    kubernetesCluster: 'aks-cluster-cd96'
+    command: package
+    chartPath: 'docker-spring-boot-java-web-service-example/helmcharts/springboot'
+    save: false
+    arguments: '--set image.tag=$(Build.BuildId)'
+    
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: drop'
+
+
+steps:
+- task: HelmInstaller@0
+  displayName: 'Install Helm 3.0.0'
+  inputs:
+    helmVersion: 3.0.0
+
+- task: HelmDeploy@0
+  displayName: 'helm upgrade'
+  inputs:
+    connectionType: 'Kubernetes Service Connection'
+    kubernetesServiceConnection: kubernetesserviceconnection
+    namespace: preint
+    command: upgrade
+    chartType: FilePath
+    chartPath: '$(System.DefaultWorkingDirectory)/_AzureDevOpsRND-CI (1)/drop/springboot-0.1.0.tgz'
+    releaseName: springboot
