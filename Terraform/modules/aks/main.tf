@@ -3,7 +3,6 @@ resource "random_id" "random_id" {
 }
  data "azurerm_resource_group" "resource_group" {
   name     = "${var.resource_group}"
-  location = "${var.location}"
 }
 resource "azurerm_kubernetes_cluster" "aks_cluster" {
   name                = "${var.cluster_name}${random_id.random_id.hex}"
