@@ -3,8 +3,7 @@ resource "random_id" "random_id" {
   byte_length = 2
 }
  data "azurerm_resource_group" "resource_group" {
-  name     = "${var.resource_group}${random_id.random_id.hex}-rg"
-  location = "${var.location}"
+  name     = "${var.resource_group}"
 }
 resource "azurerm_container_registry" "example" {
   name                = "${var.prefix}registry"
