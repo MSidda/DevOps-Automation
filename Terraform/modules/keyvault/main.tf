@@ -3,7 +3,7 @@ resource "random_id" "random_id" {
 }
  data "azurerm_resource_group" "resource_group" {
   name     = "${var.username}"
-  location = "${var.location}"
+ 
 }
 data "azurerm_client_config" "current" {
 }
