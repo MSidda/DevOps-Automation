@@ -15,17 +15,17 @@ variable "username" {
 }
 
 variable "subscription_id" {
-  default = "c0ec6f80-33d1-4f5a-aeee-968b216cb574"
+  default = "976709cf-14cb-4d18-a8c1-68a602b93aed"
 }
 
 variable "client_id" {
-  default = "53cefe4d-2e03-43d3-b7bd-df73ff529484"
+  default = "b850400c-a13f-4208-9f84-e1deb8086dd4"
 }
 
 variable "client_secret" {
-  default = "hC_21iL2t5K-GfhvWX?R.a[XHUy39GZ?"
+  default = "b9d0e20f-b1fa-4d4c-99ac-57f726f43804"
 }
 
 variable "tenant_id" {
-  default = "c25560d1-52fe-45a5-942c-5e5e9cb3663e"
+  default = "902eab19-c66d-43b3-91e5-d4c00ec64e88"
 }
