@@ -3,11 +3,11 @@ variable "prefix" {
   description = "The prefix used for all resources in this example"
 }
 variable "location" {
-  default     = "West US 2"
+  default     = "West Europe"
   description = "The Azure Region in which all resources in this project should be provisioned"
 }
 variable "resource_group" {
-  default     = "aks-cluster"
+  default     = "aaa-sidda-rg"
   description = "Resource Group name of the cluster"
 }
 variable "username" {
