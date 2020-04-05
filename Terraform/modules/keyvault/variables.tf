@@ -1,5 +1,5 @@
 variable "location" {
-  default     = "West US 2"
+  default     = "West Europe"
   description = "The Azure Region in which all resources in this project should be provisioned"
 }
 variable "username" {
