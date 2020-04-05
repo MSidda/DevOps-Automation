@@ -7,8 +7,8 @@ resource "random_id" "random_id" {
 }
 resource "azurerm_kubernetes_cluster" "aks_cluster" {
   name                = "${var.cluster_name}${random_id.random_id.hex}"
-  location            = "${azurerm_resource_group.resource_group.location}"
-  resource_group_name = "${azurerm_resource_group.resource_group.name}"
+  location            = "${data.azurerm_resource_group.resource_group.location}"
+  resource_group_name = "${data.azurerm_resource_group.resource_group.name}"
   dns_prefix          = "${var.dns_prefix}-${random_id.random_id.hex}"
 
   linux_profile {
