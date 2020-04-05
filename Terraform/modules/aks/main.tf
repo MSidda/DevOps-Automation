@@ -2,7 +2,7 @@ resource "random_id" "random_id" {
   byte_length = 2
 }
  data "azurerm_resource_group" "resource_group" {
-  name     = "${var.username}${random_id.random_id.hex}-rg"
+  name     = "${var.resource_group}${random_id.random_id.hex}-rg"
   location = "${var.location}"
 }
 resource "azurerm_kubernetes_cluster" "aks_cluster" {
