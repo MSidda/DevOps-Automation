@@ -11,19 +11,19 @@ variable "resource_group" {
   description = "Resource Group name of the cluster"
 }
 variable "username" {
-  default = "qldtfuser"
+  default = "user"
 }
 
 variable "subscription_id" {
-  default = "976709cf-14cb-4d18-a8c1-68a602b93aed"
+  default = ""
 }
 
 variable "client_id" {
-  default = "b850400c-a13f-4208-9f84-e1deb8086dd4"
+  default = ""
 }
 
 variable "client_secret" {
-  default = "b9d0e20f-b1fa-4d4c-99ac-57f726f43804"
+  default = ""
 }
 
 variable "tenant_id" {
