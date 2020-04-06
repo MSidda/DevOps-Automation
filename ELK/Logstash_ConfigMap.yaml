@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: sample-logstash-configmap
-  namespace: default
+  namespace: demo
 data:
     
   logstash.yml: |
