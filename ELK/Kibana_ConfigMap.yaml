@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: sample-kibana-configmap
-  namespace: default
+  namespace: demo
 data:
   kibana.yml: |
     server.name: sample-kibana
