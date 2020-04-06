@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: sample-elasticsearch-configmap
-  namespace: default
+  namespace: demo
 data:
   elasticsearch.yml: |
     cluster.name: "sample-elasticsearch-cluster"
