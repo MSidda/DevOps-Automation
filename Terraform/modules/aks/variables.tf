@@ -1,5 +1,5 @@
 variable "agent_count" {
-  default     = 1
+  default     = 2
   description = "Number of worker nodes to be provisioned"
 }
 variable "username" {
