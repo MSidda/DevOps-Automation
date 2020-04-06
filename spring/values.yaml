@@ -24,4 +24,4 @@ ingress:
         - path: /
           backend:
             serviceName: my-boot-service-entrypoint
-            servicePort: 3423
+            servicePort: 80
