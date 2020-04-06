@@ -1,0 +1,14 @@
+
+jobs:
+- job: ELK deploy
+pool:
+    vmImage: 'ubuntu-16.04'
+steps:
+- task: Kubernetes@1
+  displayName: 'kubectl create'
+  inputs:
+    kubernetesServiceEndpoint: testapp
+    command: create
+    useConfigurationFile: true
+    configuration: ELK
+    arguments: '-f .'
