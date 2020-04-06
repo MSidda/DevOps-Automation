@@ -20,17 +20,18 @@ steps:
   inputs:
     helmVersion: 3.0.0
     checkLatestHelmVersion: false
+    
 - task: HelmDeploy@0
   displayName: 'helm package'
   inputs:
-    azureSubscription: ''
-    azureResourceGroup: 'tflabrg-cd96'
-    kubernetesCluster: 'aks-cluster-cd96'
+    azureSubscription: azure
+    azureResourceGroup: 'aaa-sidda-rg'
+    kubernetesCluster: 'aks-cluster94f0'
+    namespace: demo
     command: package
-    chartPath: 'docker-spring-boot-java-web-service-example/helmcharts/springboot'
+    chartPath: 'spring-helm'
     save: false
-    arguments: '--set image.tag=$(Build.BuildId)'
-    
+    arguments: '--set image.tag=$(Build.BuildId)'   
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: drop'
 
@@ -40,14 +41,15 @@ steps:
   displayName: 'Install Helm 3.0.0'
   inputs:
     helmVersion: 3.0.0
-
+    
 - task: HelmDeploy@0
-  displayName: 'helm upgrade'
+  displayName: 'helm install'
   inputs:
-    connectionType: 'Kubernetes Service Connection'
-    kubernetesServiceConnection: kubernetesserviceconnection
-    namespace: preint
-    command: upgrade
+    azureSubscription: azure
+    azureResourceGroup: 'aaa-sidda-rg'
+    kubernetesCluster: 'aks-cluster94f0'
+    namespace: demo
+    command: install
     chartType: FilePath
-    chartPath: '$(System.DefaultWorkingDirectory)/_AzureDevOpsRND-CI (1)/drop/springboot-0.1.0.tgz'
-    releaseName: springboot
+    chartPath: '$(System.DefaultWorkingDirectory)/_AKS-build/drop/spring-0.1.0.tgz'
+    releaseName: springapps
