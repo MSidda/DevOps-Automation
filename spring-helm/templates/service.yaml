@@ -1,0 +1,22 @@
+{{ if .Values.microServices }} # for creating conditional blocks
+{{- range $key, $value := .Values.microServices }} #range function which provides a for-each style loop,The range function will range over (iterate through) the microServices list, variables are assigned with a special assignment operator: `:=` here $key and $value variable points to .Values.microServices
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $key }}
+  labels:
+    service-name: {{ $key }}
+spec:
+  type: {{ $.Values.service.type }} # Here $.Values.service.type access the top level variables fetch the values from the values.yaml
+  ports:
+    - port: {{ $value.svcPort }} # fetch values from the $value which is .Values.microServices list
+      targetPort: {{ $value.containerPort }} #fetch values from the $value which is .Values.microServices list
+      protocol: TCP
+      name: http
+  selector:
+    service-name: {{ $key }}
+
+---
+{{- end }}
+{{ end }}

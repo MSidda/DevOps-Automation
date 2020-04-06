@@ -1,0 +1,51 @@
+{{ if .Values.microServices }}
+{{- range $key, $value := .Values.microServices }}
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: {{ $key }}
+  labels:
+    service-name: {{ $key }}
+spec:
+  replicas: {{ $.Values.replicaCount }}  # Here $.Values.replicaCount access the top level variables fetch the values from the values.yaml
+  selector:
+    matchLabels:
+      service-name: {{ $key }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        service-name: {{ $key }}
+    spec:
+      containers:
+        - name: {{ $key }}
+          image: "{{ $.Values.image.repository }}:{{ $value.imageTag }}" # Here $.Values.image.repository access the top level variables fetch the values from the values.yaml and $value.imageTag comes from the .Values.microServices list
+          imagePullPolicy: {{ $.Values.image.pullPolicy }} # Here $.Values.image.pullPolicy access the top level variables fetch the values from the values.yaml
+          # livenessProbe:
+          #   failureThreshold: 3
+          #   httpGet:
+          #     path: /v2/components/{{ $value.swaggerPhrase }}/swagger
+          #     port: 7075
+          #     scheme: HTTP
+          #   initialDelaySeconds: 30
+          #   periodSeconds: 100
+          #   successThreshold: 1
+          #   timeoutSeconds: 1  
+          # readinessProbe:
+          #   failureThreshold: 3
+          #   httpGet:
+          #     path: /v2/components/{{ $value.swaggerPhrase }}/swagger
+          #     port: 7075
+          #     scheme: HTTP
+          #   periodSeconds: 100
+          #   successThreshold: 1
+          #   timeoutSeconds: 1
+          ports:
+            - containerPort: {{ $value.containerPort }} # here $value.containerPort comes from the .Values.microServices list
+---
+{{- end }}
+{{ end }}
