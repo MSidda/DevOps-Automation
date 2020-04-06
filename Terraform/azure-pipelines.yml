@@ -10,38 +10,39 @@ trigger:
 - master
 
 pool:
-  vmImage: 'vs2017-win2016'
+  vmImage: 'ubuntu-16.04'
   # vmImage: 'ubuntu-latest'
 
-variables:
-  # Container registry service connection established during pipeline creation
- 
-  TemplatePath: '$(Build.SourcesDirectory)/Terraform'
-  
+pool:
+  name: Azure Pipelines
 steps:
-- task: Terraform@2
-  displayName: Terraform Init
+- task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-installer.TerraformInstaller@0
+  displayName: 'Use Terraform 0.12.12'
   inputs:
-    TemplatePath: '$(TemplatePath)'
-    Arguments: 'init'
-    InstallTerraform: true
-    Version: '0.11.8'
-    UseAzureSub: false
-    
-- task: Terraform@2
-  displayName: Terraform Plan
-  inputs:
-    TemplatePath: '$(TemplatePath)'
-    Arguments: 'plan'
-    InstallTerraform: true
-    Version: '0.11.8'
-    UseAzureSub: false
+    terraformVersion: 0.12.12
 
-- task: Terraform@2
-  displayName: Terraform apply
+- task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
+  displayName: 'terraform init '
   inputs:
-    TemplatePath: '$(TemplatePath)'
-    Arguments: 'apply --auto-approve'
-    InstallTerraform: true
-    Version: '0.11.8'
-    UseAzureSub: false
+    command: init
+    workingDirectory: Terraform
+
+- task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
+  displayName: 'terraform validate'
+  inputs:
+    workingDirectory: Terraform
+
+- task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
+  displayName: 'terraform plan'
+  inputs:
+    command: plan
+    workingDirectory: Terraform
+    environmentServiceName: azure
+
+- task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
+  displayName: 'terraform apply'
+  inputs:
+    command: apply
+    workingDirectory: Terraform
+    environmentServiceName: azure
+
