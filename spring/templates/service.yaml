@@ -9,6 +9,6 @@ spec:
     app: {{ .Values.appName }}
   ports:
     - protocol: TCP
-      port: 3423
+      port: 80
       targetPort: {{ .Values.containerPort }}
       name: http
