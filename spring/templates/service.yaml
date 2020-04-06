@@ -4,10 +4,11 @@ metadata:
   name: {{ .Values.appName }}-entrypoint
   namespace: {{ .Values.namespace }}
 spec:
+  type: LoadBalancer
   selector:
     app: {{ .Values.appName }}
   ports:
     - protocol: TCP
-      port: 80
+      port: 3423
       targetPort: {{ .Values.containerPort }}
       name: http

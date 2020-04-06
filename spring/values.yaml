@@ -18,10 +18,10 @@ ingress:
   enabled: true
   name: my-boot-service
   rules:
-    - host: my-boot-service
+    - host: my.boot.service
       http:
         paths:
-        - path: /api/auth
+        - path: /
           backend:
             serviceName: my-boot-service-entrypoint
-            servicePort: 80
+            servicePort: 3423
